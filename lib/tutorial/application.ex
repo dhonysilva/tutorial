@@ -9,7 +9,6 @@ defmodule Tutorial.Application do
   def start(_type, _args) do
     children = [
       TutorialWeb.Telemetry,
-      Tutorial.Repo,
       {DNSCluster, query: Application.get_env(:tutorial, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Tutorial.PubSub},
       # Start the Finch HTTP client for sending emails
