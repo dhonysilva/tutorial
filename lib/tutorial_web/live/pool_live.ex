@@ -69,4 +69,13 @@ defmodule TutorialWeb.PoolLive do
   def handle_event("reset", _, socket) do
     {:noreply, assign(socket, votes: @initial_votes)}
   end
+
+  def handle_info(:reset, socket) do
+    {:noreply, assign(socket, votes: @initial_votes)}
+  end
+
+  def handle_info({:vote, option}, socket) do
+    new_votes = Map.update!(socket.assigns.votes, option, &(&1 + 1))
+    {:noreply, assign(socket, votes: new_votes)}
+  end
 end
