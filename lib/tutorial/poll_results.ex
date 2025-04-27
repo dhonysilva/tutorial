@@ -3,8 +3,8 @@ defmodule Tutorial.PollResults do
 
   # Client API
 
-  def start do
-    GenServer.start(__MODULE__, nil, name: __MODULE__)
+  def start_link(_) do
+    GenServer.start_link(__MODULE__, nil, name: __MODULE__)
   end
 
   def get_state do
