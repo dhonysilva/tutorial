@@ -24,6 +24,7 @@ defmodule TutorialWeb.Router do
     live "/beatles/:id", BeatlesLive
     live "/albums", AlbumLive
     live "/albums/:id", AlbumLive
+    live "/pool", PoolLive
   end
 
   # Other scopes may use custom stacks.
