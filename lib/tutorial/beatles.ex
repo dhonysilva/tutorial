@@ -35,7 +35,7 @@ defmodule Tutorial.Beatles do
     ]
   end
 
-  def list_albumn do
+  def list_albums do
     [
       %Album{
         id: 1,
