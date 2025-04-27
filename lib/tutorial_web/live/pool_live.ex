@@ -1,6 +1,8 @@
 defmodule TutorialWeb.PoolLive do
   use TutorialWeb, :live_view
 
+  alias Phoenix.PubSub
+
   def render(assigns) do
     ~H"""
     <pre>
@@ -57,17 +59,21 @@ defmodule TutorialWeb.PoolLive do
     "D" => 0
   }
 
+  @pubsub_topic "pool"
+
   def mount(_params, _session, socket) do
+    PubSub.subscribe(Tutorial.PubSub, @pubsub_topic)
     {:ok, assign(socket, votes: @initial_votes)}
   end
 
   def handle_event("vote", %{"option" => option}, socket) do
-    new_votes = Map.update!(socket.assigns.votes, option, &(&1 + 1))
-    {:noreply, assign(socket, votes: new_votes)}
+    PubSub.broadcast(Tutorial.PubSub, @pubsub_topic, {:vote, option})
+    {:noreply, socket}
   end
 
   def handle_event("reset", _, socket) do
-    {:noreply, assign(socket, votes: @initial_votes)}
+    PubSub.broadcast(Tutorial.PubSub, @pubsub_topic, :reset)
+    {:noreply, socket}
   end
 
   def handle_info(:reset, socket) do
