@@ -20,6 +20,10 @@ defmodule TutorialWeb.Router do
     get "/", PageController, :home
 
     live "/cookies", CookiesLive
+    live "/beatles", BeatlesLive
+    live "/beatles/:id", BeatlesLive
+    live "/albums", AlbumLive
+    live "/albums/:id", AlbumLive
   end
 
   # Other scopes may use custom stacks.
